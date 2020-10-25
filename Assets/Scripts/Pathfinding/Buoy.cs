@@ -11,7 +11,15 @@ public class Buoy : MonoBehaviour
 
   void Awake()
   {
-    position = transform.position;
+    RaycastHit hitInfo;
+    if (Physics.Raycast(transform.position,-Vector3.up, out hitInfo, 10f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+    {
+      position = hitInfo.point;
+    }
+    else
+    {
+      position = transform.position;
+    }
   }
 
   public static int Compare(Buoy lhs, Buoy rhs)

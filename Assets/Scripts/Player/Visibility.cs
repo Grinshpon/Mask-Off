@@ -11,6 +11,8 @@ public class Visibility : MonoBehaviour
 
   public TextMeshProUGUI visText;
 
+  public int visibility;
+
   void Awake()
   {
     lightable = GetComponent<Lightable>();
@@ -19,7 +21,7 @@ public class Visibility : MonoBehaviour
 
   public void Tick()
   {
-    int visibility = Mathf.RoundToInt(100f * Mathf.Clamp(lightable.lightLevel * (player.crouching ? 0.75f : 1f),0f,1f));
+    visibility = Mathf.RoundToInt(100f * Mathf.Clamp(lightable.lightLevel * (player.crouching ? 0.75f : 1f),0f,1f));
     visText.text = "Visibility: " + visibility;
   }
 }

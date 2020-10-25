@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class NPCAgent : MonoBehaviour
 {
   NavMeshAgent agent;
+  Animator animator;
+  Transform myTransform;
 
   [SerializeField]
   PatrolPath patrolPath;
@@ -15,9 +17,18 @@ public class NPCAgent : MonoBehaviour
   int pathIndex;
   bool stopped;
 
+  public float suspicionLevel;
+
+  static int vertical;
+  //static int horizontal;
+
   void Awake()
   {
     agent = GetComponent<NavMeshAgent>();
+    animator = GetComponent<Animator>();
+    myTransform = transform;
+
+    vertical = Animator.StringToHash("Vertical");
   }
 
   void Start()
@@ -29,13 +40,21 @@ public class NPCAgent : MonoBehaviour
 
   void Update()
   {
-    if (agent.remainingDistance == 0)
+    //Debug.Log(agent.remainingDistance);
+    if (agent.remainingDistance <= agent.stoppingDistance)
     {
       if (!stopped)
       {
         stopped = true;
         StartCoroutine(StopThenCont());
       }
+    }
+
+    if (animator != null)
+    {
+      float val = agent.velocity.magnitude/4f;
+      //Debug.Log(val);
+      animator.SetFloat(vertical, val);
     }
   }
 
