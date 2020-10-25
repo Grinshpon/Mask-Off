@@ -7,7 +7,7 @@ public class Resolutions : MonoBehaviour
   Resolution[] resolutions;
   public Dropdown resolutionMenu;
 
-  void Start()
+  void Awake()
   {
     resolutions = Screen.resolutions;
     //resolutionMenu.onValueChanged.AddListener(delegate { Screen.SetResolution(resolutions[resolutionMenu.value].width, resolutions[resolutionMenu.value].height, false); });

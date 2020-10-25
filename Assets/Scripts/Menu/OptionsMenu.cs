@@ -10,7 +10,7 @@ public class OptionsMenu : MonoBehaviour
   public Toggle fullscreen;
   public Slider volumeSlider;
 
-  public void Start()
+  public void Awake()
   {
     fullscreen.isOn = Screen.fullScreen;
     float volume;
