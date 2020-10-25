@@ -5,18 +5,19 @@ using System.Collections;
 public class Resolutions : MonoBehaviour
 {
   Resolution[] resolutions;
-  public Dropdown dropdownMenu;
+  public Dropdown resolutionMenu;
 
   void Start()
   {
     resolutions = Screen.resolutions;
-    dropdownMenu.onValueChanged.AddListener(delegate { Screen.SetResolution(resolutions[dropdownMenu.value].width, resolutions[dropdownMenu.value].height, false); });
+    //resolutionMenu.onValueChanged.AddListener(delegate { Screen.SetResolution(resolutions[resolutionMenu.value].width, resolutions[resolutionMenu.value].height, false); });
     for (int i = 0; i < resolutions.Length; i++)
     {
       string text = ResToString(resolutions[i]);
-      dropdownMenu.options.Add(new Dropdown.OptionData(text));
-      dropdownMenu.value = i;
+      resolutionMenu.options.Add(new Dropdown.OptionData(text));
+      if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) resolutionMenu.value = i;
     }
+    resolutionMenu.RefreshShownValue();
   }
 
   string ResToString(Resolution res)
