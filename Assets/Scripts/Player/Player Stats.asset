@@ -16,3 +16,5 @@ MonoBehaviour:
   maxMoveSpeed: 6
   jumpMod: 5
   moveMod: 1
+  health: 100
+  maxHealth: 100

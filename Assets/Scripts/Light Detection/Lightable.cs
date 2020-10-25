@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Lightable : MonoBehaviour {
+  public Light directionalLight;
   public float lightLevel = 0f; //eventually starting value will be set to "ambient light level"
   public List<Collider> lightSources;
   public List<Light> lights;
 
   public Transform myTransform;
 
+  float minLightLevel;
+
   void Awake()
   {
     myTransform = GetComponent<Transform>();
+    minLightLevel = directionalLight.intensity;
   }
 
   void FixedUpdate()
@@ -57,7 +61,7 @@ public class Lightable : MonoBehaviour {
   void HandleLightLevel()
   {
     Vector3 myPosition = myTransform.position;
-    lightLevel = 0f;
+    lightLevel = minLightLevel;
     Ray ray = new Ray();
     Vector3 direction;
     float distance;

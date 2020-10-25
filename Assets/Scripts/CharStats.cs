@@ -9,4 +9,7 @@ public class CharStats : ScriptableObject
   public float maxMoveSpeed;
   public float jumpMod;
   public float moveMod;
+
+  public float health;
+  public float maxHealth;
 }
