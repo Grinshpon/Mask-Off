@@ -8,6 +8,7 @@ public class NPCVision : MonoBehaviour
 
   NPCAgent guard;
 
+  public Vector3 lastKnownPosition;
   Transform myTransform;
   Transform playerTransform;
   Visibility playerVisibility;
@@ -31,6 +32,7 @@ public class NPCVision : MonoBehaviour
       {
         if (hitInfo.transform.tag == "Player")
         {
+          lastKnownPosition = playerPosition;
           guard.suspicionLevel += Mathf.Clamp(playerVisibility.visibility - playerLocalPos.magnitude,0f,100f) * Time.deltaTime;
           //Debug.Log("I SEE YOU");
         }

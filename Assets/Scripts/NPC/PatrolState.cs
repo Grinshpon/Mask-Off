@@ -39,6 +39,8 @@ public class PatrolState : NPCState
         }
       }
     }
+
+    guard.suspicionLevel -= deescalateRate * Time.deltaTime;
   }
 
   public override void Exit()

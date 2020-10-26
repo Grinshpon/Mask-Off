@@ -18,8 +18,9 @@ public class NPCAgent : MonoBehaviour
   public float suspicionLevel;
 
   protected int vertical;
-  //[SerializeField]
-  //public Transform target; //the player's transform
+
+  [SerializeField]
+  public Transform target; //the player's transform
 
   void Awake()
   {
@@ -45,11 +46,11 @@ public class NPCAgent : MonoBehaviour
 
   void Update()
   {
-    if (suspicionLevel > 66f)
+    if (suspicionLevel > 70f)
     {
       npcSM.ChangeState(alertState);
     }
-    else if (suspicionLevel > 33f)
+    else if (suspicionLevel > 25f)
     {
       npcSM.ChangeState(searchState);
     }
@@ -62,6 +63,7 @@ public class NPCAgent : MonoBehaviour
 
   void LateUpdate()
   {
+    if (suspicionLevel < 0) suspicionLevel = 0;
     if (animator != null)
     {
       float val = agent.velocity.magnitude/4f;

@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suspicionLevel: 0
+  target: {fileID: 838640149}
 --- !u!114 &522470526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1332,6 +1333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 45
+  lastKnownPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &522470527
 Transform:
   m_ObjectHideFlags: 0
@@ -1359,6 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d864362591e6b44babd9856e33f60d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deescalateRate: 1
   patrolPath: {fileID: 1199848214}
   stopTime: 3
   pathIndex: 0
@@ -1375,6 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0135da66b6d70f7478fbe6ec3868f2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deescalateRate: 0
 --- !u!114 &522470530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3af4c34536e4341a0a6a4c97d53e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deescalateRate: 0.5
+  stopTime: 3
 --- !u!82 &522470531
 AudioSource:
   m_ObjectHideFlags: 0

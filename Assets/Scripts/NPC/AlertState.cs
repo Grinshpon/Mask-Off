@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlertState : State
+public class AlertState : NPCState
 {
   public override void Enter()
   {
