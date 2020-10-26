@@ -45,6 +45,7 @@ public class GameMaster : MonoBehaviour
     Time.timeScale = 0f;
     pauseMenu.SetActive(true);
     Cursor.visible = true;
+    AudioListener.pause = true;
   }
 
   public void Resume()
@@ -54,6 +55,7 @@ public class GameMaster : MonoBehaviour
     Time.timeScale = 1f;
     pauseMenu.SetActive(false);
     Cursor.visible = false;
+    AudioListener.pause = false;
   }
 
   public void Quit()

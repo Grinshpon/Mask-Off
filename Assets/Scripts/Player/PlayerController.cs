@@ -72,6 +72,15 @@ public class PlayerController : MonoBehaviour
     leanDir = inputHandler.leanInput;
     crouching = inputHandler.crouchInput;
 
+    if (crouching)
+    {
+      footsteps.pitch = 0.75f;
+    }
+    else
+    {
+      footsteps.pitch = 1f;
+    }
+
     if (grounded) {
       if (movement.sqrMagnitude > 0) moveSM.ChangeState(runningState);
       else moveSM.ChangeState(idleState);

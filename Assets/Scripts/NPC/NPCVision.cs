@@ -22,11 +22,18 @@ public class NPCVision : MonoBehaviour
   {
     if (playerTransform != null)
     {
-      Vector3 playerLocalPos = playerTransform.position - myTransform.position;
-      if (Vector3.Angle(myTransform.forward, playerLocalPos) <= angle)
+      Vector3 myPosition = myTransform.position;
+      Vector3 playerPosition = playerTransform.position;
+      Vector3 playerLocalPos = playerPosition - myPosition;
+      RaycastHit hitInfo;
+      if (Vector3.Angle(myTransform.forward, playerLocalPos) <= angle
+        && Physics.Raycast(myPosition, playerLocalPos, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
       {
-        guard.suspicionLevel += Mathf.Clamp(playerVisibility.visibility - playerLocalPos.magnitude,0f,100f) * Time.deltaTime;
-        //Debug.Log("I SEE YOU");
+        if (hitInfo.transform.tag == "Player")
+        {
+          guard.suspicionLevel += Mathf.Clamp(playerVisibility.visibility - playerLocalPos.magnitude,0f,100f) * Time.deltaTime;
+          //Debug.Log("I SEE YOU");
+        }
       }
     }
   }

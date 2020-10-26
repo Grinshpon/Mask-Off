@@ -8,73 +8,73 @@ public class NPCAgent : MonoBehaviour
   NavMeshAgent agent;
   Animator animator;
   Transform myTransform;
+  AudioSource footsteps;
 
-  [SerializeField]
-  PatrolPath patrolPath = null;
-  [SerializeField]
-  float stopTime = 3f;
-
-  int pathIndex;
-  bool stopped;
+  PatrolState patrolState;
+  SearchState searchState;
+  AlertState alertState;
+  public StateMachine npcSM;
 
   public float suspicionLevel;
 
-  static int vertical;
-  //static int horizontal;
+  protected int vertical;
+  //[SerializeField]
+  //public Transform target; //the player's transform
 
   void Awake()
   {
     agent = GetComponent<NavMeshAgent>();
     animator = GetComponentInChildren<Animator>();
     myTransform = transform;
+    footsteps = GetComponent<AudioSource>();
+
+    patrolState = GetComponent<PatrolState>();
+    searchState = GetComponent<SearchState>();
+    alertState = GetComponent<AlertState>();
+    npcSM = new StateMachine();
 
     vertical = Animator.StringToHash("Vertical");
   }
 
   void Start()
   {
-    stopped = false;
-    pathIndex = 0;
-    if (patrolPath != null) agent.SetDestination(patrolPath.buoys[0].position);
+    npcSM.ChangeState(patrolState);
+    footsteps.Play();
+    footsteps.Pause();
   }
 
   void Update()
   {
-    if (patrolPath != null)
+    if (suspicionLevel > 66f)
     {
-      //Debug.Log(agent.remainingDistance);
-      if (agent.remainingDistance <= agent.stoppingDistance)
-      {
-        if (!stopped)
-        {
-          stopped = true;
-          StartCoroutine(StopThenCont());
-        }
-      }
-
-      if (animator != null)
-      {
-        float val = agent.velocity.magnitude/4f;
-        //Debug.Log(val);
-        animator.SetFloat(vertical, val);
-      }
+      npcSM.ChangeState(alertState);
     }
+    else if (suspicionLevel > 33f)
+    {
+      npcSM.ChangeState(searchState);
+    }
+    else
+    {
+      npcSM.ChangeState(patrolState);
+    }
+    npcSM.Tick();
   }
 
-  IEnumerator StopThenCont()
+  void LateUpdate()
   {
-    stopped = true;
-    float timer = 0f;
-    while(timer < stopTime) // prematurely end this if guard is suspicious or alerted
+    if (animator != null)
     {
-      timer += Time.deltaTime;
-      yield return null;
+      float val = agent.velocity.magnitude/4f;
+      //Debug.Log(val);
+      animator.SetFloat(vertical, val);
+      if (val > 0f)
+      {
+        footsteps.UnPause();
+      }
+      else
+      {
+        footsteps.Pause();
+      }
     }
-    stopped = false;
-    if (pathIndex == patrolPath.buoys.Count-1) pathIndex = 0;
-    else pathIndex++;
-
-    agent.SetDestination(patrolPath.buoys[pathIndex].position);
-    yield return null;
   }
 }
