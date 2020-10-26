@@ -10,9 +10,9 @@ public class NPCAgent : MonoBehaviour
   Transform myTransform;
 
   [SerializeField]
-  PatrolPath patrolPath;
+  PatrolPath patrolPath = null;
   [SerializeField]
-  float stopTime;
+  float stopTime = 3f;
 
   int pathIndex;
   bool stopped;
@@ -25,7 +25,7 @@ public class NPCAgent : MonoBehaviour
   void Awake()
   {
     agent = GetComponent<NavMeshAgent>();
-    animator = GetComponent<Animator>();
+    animator = GetComponentInChildren<Animator>();
     myTransform = transform;
 
     vertical = Animator.StringToHash("Vertical");
@@ -35,26 +35,29 @@ public class NPCAgent : MonoBehaviour
   {
     stopped = false;
     pathIndex = 0;
-    agent.SetDestination(patrolPath.buoys[0].position);
+    if (patrolPath != null) agent.SetDestination(patrolPath.buoys[0].position);
   }
 
   void Update()
   {
-    //Debug.Log(agent.remainingDistance);
-    if (agent.remainingDistance <= agent.stoppingDistance)
+    if (patrolPath != null)
     {
-      if (!stopped)
+      //Debug.Log(agent.remainingDistance);
+      if (agent.remainingDistance <= agent.stoppingDistance)
       {
-        stopped = true;
-        StartCoroutine(StopThenCont());
+        if (!stopped)
+        {
+          stopped = true;
+          StartCoroutine(StopThenCont());
+        }
       }
-    }
 
-    if (animator != null)
-    {
-      float val = agent.velocity.magnitude/4f;
-      //Debug.Log(val);
-      animator.SetFloat(vertical, val);
+      if (animator != null)
+      {
+        float val = agent.velocity.magnitude/4f;
+        //Debug.Log(val);
+        animator.SetFloat(vertical, val);
+      }
     }
   }
 

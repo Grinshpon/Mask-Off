@@ -16,7 +16,7 @@ public class StateMachine
     currentState.Enter();
   }
 
-  public void ChangeState(IState newState)
+  public virtual void ChangeState(IState newState)
   {
     if (newState != currentState)
     {

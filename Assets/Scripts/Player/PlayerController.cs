@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
   CapsuleCollider capsule;
   PlayerCamera cam;
   Visibility visibility;
+  AudioSource footsteps;
 
+  //don't use MoveStateMachine
   public StateMachine moveSM;
 
   // Movement States
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
     inputHandler = GetComponent<PlayerInputHandler>();
     capsule = GetComponent<CapsuleCollider>();
     cam = GetComponent<PlayerCamera>();
+    footsteps = GetComponent<AudioSource>();
 
     runningState = GetComponent<RunningState>();
     idleState = GetComponent<IdleState>();
