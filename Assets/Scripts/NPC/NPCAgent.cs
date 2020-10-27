@@ -12,11 +12,14 @@ public class NPCAgent : MonoBehaviour
   PatrolState patrolState;
   SearchState searchState;
   AlertState alertState;
+  DeadState deadState;
   public StateMachine npcSM;
 
   public float suspicionLevel;
 
   protected int vertical;
+
+  public bool alive = true;
 
   [SerializeField]
   public Transform target; //the player's transform
@@ -40,6 +43,7 @@ public class NPCAgent : MonoBehaviour
     patrolState = GetComponent<PatrolState>();
     searchState = GetComponent<SearchState>();
     alertState = GetComponent<AlertState>();
+    deadState = GetComponent<DeadState>();
     npcSM = new StateMachine();
 
     vertical = Animator.StringToHash("Vertical");
@@ -47,6 +51,7 @@ public class NPCAgent : MonoBehaviour
 
   void Start()
   {
+    alive = true;
     npcSM.ChangeState(patrolState);
     footsteps.Play();
     footsteps.Pause();
@@ -54,17 +59,24 @@ public class NPCAgent : MonoBehaviour
 
   void Update()
   {
-    if (suspicionLevel > 70f)
+    if (alive)
     {
-      npcSM.ChangeState(alertState);
-    }
-    else if (suspicionLevel > 25f)
-    {
-      npcSM.ChangeState(searchState);
+      if (suspicionLevel > 70f)
+      {
+        npcSM.ChangeState(alertState);
+      }
+      else if (suspicionLevel > 25f)
+      {
+        npcSM.ChangeState(searchState);
+      }
+      else
+      {
+        npcSM.ChangeState(patrolState);
+      }
     }
     else
     {
-      npcSM.ChangeState(patrolState);
+      npcSM.ChangeState(deadState);
     }
     npcSM.Tick();
   }

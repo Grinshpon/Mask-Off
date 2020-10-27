@@ -64,7 +64,7 @@ public class PatrolState : NPCState
     if (pathIndex == patrolPath.buoys.Count-1) pathIndex = 0;
     else pathIndex++;
 
-    agent.SetDestination(patrolPath.buoys[pathIndex].position);
+    if (agent.enabled) agent.SetDestination(patrolPath.buoys[pathIndex].position);
     yield return null;
   }
 }

@@ -10,6 +10,9 @@ public class NPCState : State
   protected NPCVision vision;
   protected Animator animator;
   protected Transform myTransform;
+  protected CapsuleCollider capsule;
+
+  protected Rigidbody[] ragdollBodies;
 
   protected int vertical;
 
@@ -23,8 +26,20 @@ public class NPCState : State
     agent = GetComponent<NavMeshAgent>();
     animator = GetComponentInChildren<Animator>();
     myTransform = GetComponent<Transform>();
+    capsule = GetComponent<CapsuleCollider>();
+
+    ragdollBodies = GetComponentsInChildren<Rigidbody>();
 
     vertical = Animator.StringToHash("Vertical");
+  }
+
+  void Start()
+  {
+    foreach(Rigidbody rb in ragdollBodies)
+    {
+      rb.isKinematic = true;
+      rb.detectCollisions = false;
+    }
   }
 
   protected void DeescalateSuspicion()
