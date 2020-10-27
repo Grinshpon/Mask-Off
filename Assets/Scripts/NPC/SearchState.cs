@@ -21,7 +21,8 @@ public class SearchState : NPCState
     // or not the guard heard or saw the player, and if he only heard
     // something he'll begin it at his own position;
     searchArea = new SearchArea(vision.lastKnownPosition, 5f);
-    movingToPoint = false;
+    agent.SetDestination(vision.lastKnownPosition);
+    movingToPoint = true;
     stopped = false;
     guard.suspicious.Play();
   }

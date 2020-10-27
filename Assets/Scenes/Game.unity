@@ -1755,8 +1755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0135da66b6d70f7478fbe6ec3868f2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deescalateRate: 0
+  deescalateRate: 1
   attackDistance: 1.5
+  alertFovAngle: 90
 --- !u!114 &522470530
 MonoBehaviour:
   m_ObjectHideFlags: 0

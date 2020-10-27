@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StateMachine
 {
+  public IState previousState;
   public IState currentState;
 
   public StateMachine()
@@ -21,6 +22,7 @@ public class StateMachine
     if (newState != currentState)
     {
       currentState.Exit();
+      previousState = currentState;
       currentState = newState;
       currentState.Enter();
       //Debug.Log(currentState.GetType());
@@ -41,20 +43,4 @@ public class StateMachine
   {
     currentState.LateTick();
   }
-/*
-  public void MUpdate()
-  {
-    currentState.SUpdate();
-  }
-
-  public void MFixedUpdate()
-  {
-    currentState.SFixedUpdate();
-  }
-
-  public void MLateUpdate()
-  {
-    currentState.SLateUpdate();
-  }
-*/
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPCVision : MonoBehaviour
 {
+  //angle is half of conal fov
   public float angle = 30;
 
   NPCAgent guard;

@@ -10,6 +10,7 @@ public class DeadState : NPCState
     agent.enabled = false;
     foreach(Rigidbody rb in ragdollBodies)
     {
+      rb.mass = 0.01f;
       rb.detectCollisions = true;
       rb.isKinematic = false;
     }

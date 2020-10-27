@@ -37,6 +37,7 @@ public class NPCState : State
   {
     foreach(Rigidbody rb in ragdollBodies)
     {
+      rb.mass = 0.01f;
       rb.isKinematic = true;
       rb.detectCollisions = false;
     }
