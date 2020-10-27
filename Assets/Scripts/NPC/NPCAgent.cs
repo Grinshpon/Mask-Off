@@ -8,7 +8,6 @@ public class NPCAgent : MonoBehaviour
   NavMeshAgent agent;
   Animator animator;
   Transform myTransform;
-  AudioSource footsteps;
 
   PatrolState patrolState;
   SearchState searchState;
@@ -22,12 +21,21 @@ public class NPCAgent : MonoBehaviour
   [SerializeField]
   public Transform target; //the player's transform
 
+  [Header("Audio Sources")]
+  [SerializeField]
+  public AudioSource footsteps;
+  [SerializeField]
+  public AudioSource calmDown;
+  [SerializeField]
+  public AudioSource suspicious;
+  [SerializeField]
+  public AudioSource alerted;
+
   void Awake()
   {
     agent = GetComponent<NavMeshAgent>();
     animator = GetComponentInChildren<Animator>();
     myTransform = transform;
-    footsteps = GetComponent<AudioSource>();
 
     patrolState = GetComponent<PatrolState>();
     searchState = GetComponent<SearchState>();

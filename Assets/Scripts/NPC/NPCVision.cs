@@ -9,13 +9,15 @@ public class NPCVision : MonoBehaviour
   NPCAgent guard;
 
   public Vector3 lastKnownPosition;
+
+  public bool seePlayer = false;
   Transform myTransform;
   Transform playerTransform;
   Visibility playerVisibility;
 
   void Awake()
   {
-    guard = GetComponent<NPCAgent>();
+    guard = GetComponentInParent<NPCAgent>();
     myTransform = transform;
   }
 
@@ -27,14 +29,32 @@ public class NPCVision : MonoBehaviour
       Vector3 playerPosition = playerTransform.position;
       Vector3 playerLocalPos = playerPosition - myPosition;
       RaycastHit hitInfo;
-      if (Vector3.Angle(myTransform.forward, playerLocalPos) <= angle
-        && Physics.Raycast(myPosition, playerLocalPos, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+
+      float visAngle = Vector3.Angle(myTransform.forward, playerLocalPos);
+      seePlayer = false;
+      if (visAngle <= angle)
       {
-        if (hitInfo.transform.tag == "Player")
+        //Debug.Log("Angle: " + visAngle);
+        bool rayhit = Physics.Raycast(
+          myPosition,
+          playerLocalPos,
+          out hitInfo,
+          100f,
+          Physics.DefaultRaycastLayers & (~(1 << 11)),
+          QueryTriggerInteraction.Ignore
+        );
+        Debug.DrawRay(myPosition, playerLocalPos, Color.red);
+        if (rayhit)
         {
-          lastKnownPosition = playerPosition;
-          guard.suspicionLevel += Mathf.Clamp(playerVisibility.visibility - playerLocalPos.magnitude,0f,100f) * Time.deltaTime;
-          //Debug.Log("I SEE YOU");
+          seePlayer = hitInfo.transform.tag == "Player";
+          Debug.Log(hitInfo.transform.tag);
+          if (seePlayer)
+          {
+            lastKnownPosition = playerPosition;
+            float addSuspicion = (playerVisibility.visibility / playerLocalPos.magnitude) * 2f * Time.deltaTime;
+            guard.suspicionLevel = Mathf.Clamp(guard.suspicionLevel + addSuspicion,0f,100f);
+            Debug.Log("Sus: " + (addSuspicion / Time.deltaTime) + "\n Dist: " + playerLocalPos.magnitude);
+          }
         }
       }
     }

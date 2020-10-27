@@ -23,7 +23,7 @@ public class SearchState : NPCState
     searchArea = new SearchArea(vision.lastKnownPosition, 5f);
     movingToPoint = false;
     stopped = false;
-    Debug.Log("What was that?");
+    guard.suspicious.Play();
   }
 
   public override void Tick()
@@ -45,7 +45,7 @@ public class SearchState : NPCState
       }
     }
 
-    guard.suspicionLevel -= deescalateRate * Time.deltaTime;
+    DeescalateSuspicion();
   }
 
   IEnumerator LookThenCont()

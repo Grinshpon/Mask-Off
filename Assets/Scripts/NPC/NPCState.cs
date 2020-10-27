@@ -19,12 +19,17 @@ public class NPCState : State
   void Awake()
   {
     guard = GetComponent<NPCAgent>();
-    vision = GetComponent<NPCVision>();
+    vision = GetComponentInChildren<NPCVision>();
     agent = GetComponent<NavMeshAgent>();
     animator = GetComponentInChildren<Animator>();
     myTransform = GetComponent<Transform>();
 
     vertical = Animator.StringToHash("Vertical");
+  }
+
+  protected void DeescalateSuspicion()
+  {
+    guard.suspicionLevel = Mathf.Clamp(guard.suspicionLevel - (deescalateRate * Time.deltaTime), 0f, 100f);
   }
 
 }

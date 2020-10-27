@@ -22,7 +22,7 @@ public class PatrolState : NPCState
   public override void Enter()
   {
     if (patrolPath != null) agent.SetDestination(patrolPath.buoys[pathIndex].position);
-    Debug.Log("Whistling");
+    guard.calmDown.Play();
   }
 
   public override void Tick()
@@ -40,7 +40,7 @@ public class PatrolState : NPCState
       }
     }
 
-    guard.suspicionLevel -= deescalateRate * Time.deltaTime;
+    DeescalateSuspicion();
   }
 
   public override void Exit()
