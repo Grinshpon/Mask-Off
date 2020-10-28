@@ -39,7 +39,7 @@ public class NPCState : State
     {
       rb.mass = 0.01f;
       rb.isKinematic = true;
-      rb.detectCollisions = false;
+      //rb.detectCollisions = false;
     }
   }
 
@@ -47,5 +47,4 @@ public class NPCState : State
   {
     guard.suspicionLevel = Mathf.Clamp(guard.suspicionLevel - (deescalateRate * Time.deltaTime), 0f, 100f);
   }
-
 }

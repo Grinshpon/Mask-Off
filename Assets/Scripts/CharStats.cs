@@ -12,4 +12,19 @@ public class CharStats : ScriptableObject
 
   public float health;
   public float maxHealth;
+
+  public float SetHealth(float value)
+  {
+    health = Mathf.Clamp(value, 0f, maxHealth);
+    return health;
+  }
+
+  public float DecHealth(float amount)
+  {
+    return SetHealth(health-amount);
+  }
+  public float IncHealth(float amount)
+  {
+    return SetHealth(health+amount);
+  }
 }

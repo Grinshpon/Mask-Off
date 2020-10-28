@@ -47,14 +47,14 @@ public class NPCVision : MonoBehaviour
         Debug.DrawRay(myPosition, playerLocalPos, Color.red);
         if (rayhit)
         {
-          seePlayer = hitInfo.transform.tag == "Player";
-          Debug.Log(hitInfo.transform.tag);
+          seePlayer = hitInfo.transform.CompareTag("Player");
+          //Debug.Log(hitInfo.transform.tag);
           if (seePlayer)
           {
             lastKnownPosition = playerPosition;
             float addSuspicion = (playerVisibility.visibility / playerLocalPos.magnitude) * 2f * Time.deltaTime;
             guard.suspicionLevel = Mathf.Clamp(guard.suspicionLevel + addSuspicion,0f,100f);
-            Debug.Log("Sus: " + (addSuspicion / Time.deltaTime) + "\n Dist: " + playerLocalPos.magnitude);
+            //Debug.Log("Sus: " + (addSuspicion / Time.deltaTime) + "\n Dist: " + playerLocalPos.magnitude);
           }
         }
       }
@@ -63,7 +63,7 @@ public class NPCVision : MonoBehaviour
 
   void OnTriggerEnter(Collider other)
   {
-    if (other.tag == "Player")
+    if (other.CompareTag("Player"))
     {
       playerTransform = other.transform;
       playerVisibility = other.gameObject.GetComponent<Visibility>();
@@ -72,7 +72,7 @@ public class NPCVision : MonoBehaviour
 
   void OnTriggerExit(Collider other)
   {
-    if (other.tag == "Player")
+    if (other.CompareTag("Player"))
     {
       playerTransform = null;
       playerVisibility = null;

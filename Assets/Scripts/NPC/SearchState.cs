@@ -32,7 +32,7 @@ public class SearchState : NPCState
     if (!movingToPoint)
     {
       Vector3 nextPoint = searchArea.RandomPoint();
-      Debug.Log("Moving to " + nextPoint);
+      //Debug.Log("Moving to " + nextPoint);
       agent.SetDestination(nextPoint);
       movingToPoint = true;
       stopped = false;

@@ -22,7 +22,9 @@ public class NPCAgent : MonoBehaviour
   public bool alive = true;
 
   [SerializeField]
-  public Transform target; //the player's transform
+  public PlayerController target;
+  [SerializeField]
+  public WeaponTrigger weapon;
 
   [Header("Audio Sources")]
   [SerializeField]

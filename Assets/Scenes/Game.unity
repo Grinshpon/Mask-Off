@@ -1705,7 +1705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspicionLevel: 0
   alive: 1
-  target: {fileID: 838640149}
+  target: {fileID: 838640155}
+  weapon: {fileID: 597632450}
   footsteps: {fileID: 522470531}
   calmDown: {fileID: 522470534}
   suspicious: {fileID: 522470533}
@@ -2290,6 +2291,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534591914}
   m_CullTransparentMesh: 0
+--- !u!1 &597632449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8314901595278481959, guid: b4d0f82eedb95f543ab0961de54f43fd, type: 3}
+  m_PrefabInstance: {fileID: 112368917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &597632450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597632449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13a4d14a25df0848956202027bfe25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchingPlayer: 0
+--- !u!65 &597632451
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597632449}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26591098, y: 1.23, z: 0.108814605}
+  m_Center: {x: -0.0000010596428, y: 1.41, z: 0.0000000378459}
+--- !u!54 &597632452
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597632449}
+  serializedVersion: 2
+  m_Mass: 0.01
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &600659338
 GameObject:
   m_ObjectHideFlags: 0

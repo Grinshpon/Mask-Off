@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
   PlayerCamera cam;
   Visibility visibility;
   AudioSource footsteps;
+  Transform myTransform;
+  Rigidbody rb;
 
   //don't use MoveStateMachine
   public StateMachine moveSM;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
   public bool jumping;
   public bool crouching;
   public float leanDir;
+  public bool alive;
 
   void Awake()
   {
@@ -43,6 +46,8 @@ public class PlayerController : MonoBehaviour
     capsule = GetComponent<CapsuleCollider>();
     cam = GetComponent<PlayerCamera>();
     footsteps = GetComponent<AudioSource>();
+    myTransform = transform;
+    rb = GetComponent<Rigidbody>();
 
     runningState = GetComponent<RunningState>();
     idleState = GetComponent<IdleState>();
@@ -55,12 +60,23 @@ public class PlayerController : MonoBehaviour
 
   void Start()
   {
+    alive = true;
     //StartCoroutine(PrintState());
     moveSM.ChangeState(idleState);
   }
 
   void Update()
   {
+    if (stats.health == 0f)
+    {
+      if (alive)
+      {
+        alive = false;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.AddRelativeForce(-transform.forward, ForceMode.Impulse);
+      }
+      return;
+    }
     movement = inputHandler.moveInput;
     jumping = jumping || (grounded && inputHandler.jumpInput);
     if (jumping)
@@ -95,15 +111,21 @@ public class PlayerController : MonoBehaviour
 
   void FixedUpdate()
   {
-    HandleGround();
-    moveSM.FixedTick();
+    if(alive)
+    {
+      HandleGround();
+      moveSM.FixedTick();
+    }
   }
 
   void LateUpdate()
   {
-    moveSM.LateTick();
-    cam.HandleRotation(Time.deltaTime);
-    cam.HandleBobbing(Time.deltaTime);
+    if(alive)
+    {
+      moveSM.LateTick();
+      cam.HandleRotation(Time.deltaTime);
+      cam.HandleBobbing(Time.deltaTime);
+    }
   }
 
   public void HandleGround()

@@ -26,24 +26,12 @@ public class Lightable : MonoBehaviour {
 
   void OnTriggerEnter(Collider other)
   {
-    switch (other.tag)
-    {
-      case "Light":
-        HandleLightEntered(other);
-        break;
-      default: break;
-    }
+    if (other.CompareTag("Light")) HandleLightEntered(other);
   }
 
   void OnTriggerExit(Collider other)
   {
-    switch (other.tag)
-    {
-      case "Light":
-        HandleLightExited(other);
-        break;
-      default: break;
-    }
+    if(other.CompareTag("Light")) HandleLightExited(other);
   }
 
   void HandleLightEntered(Collider other)
