@@ -8,6 +8,7 @@ public class PlayerCamera : MonoBehaviour
   PlayerInputHandler inputHandler;
   Rigidbody rb;
   public Transform camPivotTransform;
+  public Transform headTransform;
 
   public float sensitivity = 1f;
 
@@ -28,7 +29,7 @@ public class PlayerCamera : MonoBehaviour
   void Start()
   {
     bobZ = 0f;
-    origin = camPivotTransform.localPosition;
+    origin = headTransform.localPosition;
     position = Vector3.zero;
   }
 
@@ -66,6 +67,6 @@ public class PlayerCamera : MonoBehaviour
         bobZ = Mathf.Asin(position.y);
         break;
     }
-    camPivotTransform.localPosition = origin + position;
+    headTransform.localPosition = origin + position;
   }
 }

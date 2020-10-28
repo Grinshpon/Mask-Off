@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DeadState : NPCState
 {
+  //weapon collider needs a special case because it's a trigger but needs to be not one when
+  // the guard dies
+  public Collider weapon;
+
   public override void Enter()
   {
     capsule.enabled = false;
@@ -14,6 +18,7 @@ public class DeadState : NPCState
       rb.detectCollisions = true;
       rb.isKinematic = false;
     }
+    weapon.isTrigger = false;
     animator.enabled = false;
   }
 }

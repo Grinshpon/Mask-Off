@@ -101,4 +101,11 @@ public class NPCAgent : MonoBehaviour
       }
     }
   }
+
+  public void ReceiveAttack()
+  {
+    //basically, for now only sneak attacks will kill a guard.
+    if (npcSM.currentState is AlertState) return;
+    alive = false;
+  }
 }

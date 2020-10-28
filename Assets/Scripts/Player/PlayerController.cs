@@ -27,7 +27,11 @@ public class PlayerController : MonoBehaviour
   // Crouch State
   CrouchState crouchState;
 
+  // Attack
+  PlayerAttacker playerAttack;
+
   public CharStats stats;
+  public Transform weapon;
 
   [Header("Flags")]
   public Vector2 movement;
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
   public bool jumping;
   public bool crouching;
   public float leanDir;
+  public bool attacking;
   public bool alive;
 
   void Awake()
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     leanState = GetComponent<LeanState>();
     crouchState = GetComponent<CrouchState>();
+    playerAttack = GetComponent<PlayerAttacker>();
   }
 
   void Start()
@@ -77,6 +83,7 @@ public class PlayerController : MonoBehaviour
       }
       return;
     }
+    attacking = inputHandler.attackInput;
     movement = inputHandler.moveInput;
     jumping = jumping || (grounded && inputHandler.jumpInput);
     if (jumping)
@@ -106,6 +113,7 @@ public class PlayerController : MonoBehaviour
     moveSM.Tick();
     leanState.Tick();
     crouchState.Tick();
+    playerAttack.Tick();
     visibility.Tick();
   }
 

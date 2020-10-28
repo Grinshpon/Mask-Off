@@ -10,12 +10,14 @@ public class PlayerInputHandler : MonoBehaviour
   public Vector2 lookInput;
   public bool jumpInput = false;
   public bool crouchInput = false;
+  public bool attackInput = false;
   public float leanInput;
 
   void Start()
   {
     jumpInput = false;
     crouchInput = false;
+    attackInput = false;
     Enable();
   }
 
@@ -30,6 +32,8 @@ public class PlayerInputHandler : MonoBehaviour
       inputActions.PlayerControl.Crouch.performed += (action) => crouchInput = !crouchInput;
       //inputActions.PlayerControl.Crouch.canceled += (action) => crouchInput = false;
       inputActions.PlayerControl.Lean.performed += (action) => leanInput = action.ReadValue<float>();
+      inputActions.PlayerControl.Attack.started += (action) => attackInput = true;
+      inputActions.PlayerControl.Attack.canceled += (action) => attackInput = false;
     }
     inputActions.Enable();
   }
