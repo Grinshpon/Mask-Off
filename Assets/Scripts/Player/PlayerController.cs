@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
       {
         alive = false;
         rb.constraints = RigidbodyConstraints.None;
-        rb.AddRelativeForce(-transform.forward, ForceMode.Impulse);
+        rb.AddRelativeForce(-myTransform.forward, ForceMode.Impulse);
       }
       return;
     }
@@ -139,8 +139,17 @@ public class PlayerController : MonoBehaviour
   public void HandleGround()
   {
     float radius = capsule.radius * 0.9f;
-    Vector3 pos = transform.position - Vector3.up*(capsule.height/2f-radius+0.1f);
-    grounded = Physics.CheckSphere(pos, radius, 1 << 8);
+    //Vector3 pos = myTransform.position - Vector3.up*(capsule.height/2f-radius+0.1f);
+    RaycastHit hitInfo;
+    //grounded = Physics.CheckSphere(pos, radius, 1 << 8);
+    if(Physics.SphereCast(myTransform.position, radius, -Vector3.up, out hitInfo, capsule.height/2f-radius+0.1f, 1<<8, QueryTriggerInteraction.Ignore))
+    {
+      grounded = Vector3.Angle(Vector3.up, hitInfo.normal) <= 45f;
+    }
+    else
+    {
+      grounded = false;
+    }
   }
 
   //DEBUG

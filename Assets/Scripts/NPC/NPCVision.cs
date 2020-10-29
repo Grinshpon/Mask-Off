@@ -52,7 +52,13 @@ public class NPCVision : MonoBehaviour
           if (seePlayer)
           {
             lastKnownPosition = playerPosition;
-            float addSuspicion = (playerVisibility.visibility / playerLocalPos.magnitude) * 2f * Time.deltaTime;
+            float sqrDist = playerLocalPos.sqrMagnitude;
+            float addSuspicion;
+            // 2 units
+            if (sqrDist < 4f) addSuspicion = playerVisibility.visibility * 10f * Time.deltaTime;
+            // 5 units
+            else if (sqrDist < 25f) addSuspicion = playerVisibility.visibility * Time.deltaTime;
+            else addSuspicion = (playerVisibility.visibility / Mathf.Sqrt(sqrDist)) * 2f * Time.deltaTime;
             guard.suspicionLevel = Mathf.Clamp(guard.suspicionLevel + addSuspicion,0f,100f);
             //Debug.Log("Sus: " + (addSuspicion / Time.deltaTime) + "\n Dist: " + playerLocalPos.magnitude);
           }

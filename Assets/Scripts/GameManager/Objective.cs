@@ -45,7 +45,7 @@ public class Objective : MonoBehaviour
 
   IEnumerator ResetGame()
   {
-    yield return new WaitForSeconds(3f);
+    yield return new WaitForSeconds(6f);
     SceneManager.LoadScene("Start");
     yield return null;
   }
