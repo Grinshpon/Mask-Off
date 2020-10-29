@@ -13,3 +13,10 @@ You play as an "unhallowed" initiate in a secret cult.
 * Ctrl - Toggle Crouch
 
 * Space - Jump
+
+* Left Mouse - Sneak Attack
+
+## Notes
+
+You are not a fighter, and when guards are alerted to your position you won't be able to hurt them.
+You must escape their pursuit and wait for them to calm back down.

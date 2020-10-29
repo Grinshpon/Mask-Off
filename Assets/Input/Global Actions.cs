@@ -33,6 +33,14 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0a16c65-597d-4d14-8fab-0b76bc00b7ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d164d78a-0c97-4b71-9bac-de36b30750e8"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @GlobalActions : IInputActionCollection, IDisposable
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Pause = m_Actions.FindAction("Pause", throwIfNotFound: true);
         m_Actions_Reset = m_Actions.FindAction("Reset", throwIfNotFound: true);
+        m_Actions_Skip = m_Actions.FindAction("Skip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @GlobalActions : IInputActionCollection, IDisposable
     private IActionsActions m_ActionsActionsCallbackInterface;
     private readonly InputAction m_Actions_Pause;
     private readonly InputAction m_Actions_Reset;
+    private readonly InputAction m_Actions_Skip;
     public struct ActionsActions
     {
         private @GlobalActions m_Wrapper;
         public ActionsActions(@GlobalActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_Actions_Pause;
         public InputAction @Reset => m_Wrapper.m_Actions_Reset;
+        public InputAction @Skip => m_Wrapper.m_Actions_Skip;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                 @Reset.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
                 @Reset.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
                 @Reset.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
+                @Skip.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSkip;
+                @Skip.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSkip;
+                @Skip.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSkip;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                 @Reset.started += instance.OnReset;
                 @Reset.performed += instance.OnReset;
                 @Reset.canceled += instance.OnReset;
+                @Skip.started += instance.OnSkip;
+                @Skip.performed += instance.OnSkip;
+                @Skip.canceled += instance.OnSkip;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @GlobalActions : IInputActionCollection, IDisposable
     {
         void OnPause(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Blurb.unity
+    guid: 18422519720df264fb477623523a06b0
+  - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 869f7b7f2989c824e8b5a65399bff6a1
   - enabled: 1
