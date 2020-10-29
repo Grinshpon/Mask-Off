@@ -6,6 +6,7 @@ public class GameInputHandler : MonoBehaviour
 {
   GlobalActions inputActions;
   public bool paused;
+  public bool resetInput;
 
   void Start()
   {
@@ -19,6 +20,9 @@ public class GameInputHandler : MonoBehaviour
     {
       inputActions = new GlobalActions();
       inputActions.Actions.Pause.performed += (action) => paused = !paused;
+
+      inputActions.Actions.Reset.started += (action) => resetInput = true;
+      inputActions.Actions.Reset.canceled += (action) => resetInput = false;
     }
     inputActions.Enable();
   }

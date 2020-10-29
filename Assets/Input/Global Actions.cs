@@ -25,6 +25,14 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3fbbad4-74aa-430c-8ab4-4813c94d775d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +46,17 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e998881-ff11-4f1c-9bc0-45d3cd990f9d"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -47,6 +66,7 @@ public class @GlobalActions : IInputActionCollection, IDisposable
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Pause = m_Actions.FindAction("Pause", throwIfNotFound: true);
+        m_Actions_Reset = m_Actions.FindAction("Reset", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -97,11 +117,13 @@ public class @GlobalActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Actions;
     private IActionsActions m_ActionsActionsCallbackInterface;
     private readonly InputAction m_Actions_Pause;
+    private readonly InputAction m_Actions_Reset;
     public struct ActionsActions
     {
         private @GlobalActions m_Wrapper;
         public ActionsActions(@GlobalActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_Actions_Pause;
+        public InputAction @Reset => m_Wrapper.m_Actions_Reset;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -114,6 +136,9 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPause;
+                @Reset.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
+                @Reset.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
+                @Reset.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReset;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -121,6 +146,9 @@ public class @GlobalActions : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Reset.started += instance.OnReset;
+                @Reset.performed += instance.OnReset;
+                @Reset.canceled += instance.OnReset;
             }
         }
     }
@@ -128,5 +156,6 @@ public class @GlobalActions : IInputActionCollection, IDisposable
     public interface IActionsActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
     }
 }
