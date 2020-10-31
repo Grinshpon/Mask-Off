@@ -64,7 +64,7 @@ public class Lightable : MonoBehaviour {
       ray.direction = direction;
       distance = direction.magnitude;
       //Debug.DrawRay(ray.origin, direction, Color.red);
-      if (!Physics.Raycast(ray, distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+      if (!Physics.Raycast(ray, distance, Physics.DefaultRaycastLayers & ~(1 << 13), QueryTriggerInteraction.Ignore))
       {
         //light attenuation formula: intensity (i) at a distance (d) from light with configured intensity (I) and range (R):
         // i = I / (1 + 25*(d/R)^2)

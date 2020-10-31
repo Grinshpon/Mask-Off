@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
   public CharStats stats;
   public Transform weapon;
 
+  public Vector3 groundNormal = Vector3.up;
   [Header("Flags")]
   public Vector2 movement;
   public bool grounded;
@@ -144,7 +145,8 @@ public class PlayerController : MonoBehaviour
     //grounded = Physics.CheckSphere(pos, radius, 1 << 8);
     if(Physics.SphereCast(myTransform.position, radius, -Vector3.up, out hitInfo, capsule.height/2f-radius+0.1f, 1<<8, QueryTriggerInteraction.Ignore))
     {
-      grounded = Vector3.Angle(Vector3.up, hitInfo.normal) <= 45f;
+      groundNormal = hitInfo.normal;
+      grounded = Vector3.Angle(Vector3.up, groundNormal) <= 45f;
     }
     else
     {

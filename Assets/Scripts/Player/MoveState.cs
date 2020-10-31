@@ -31,6 +31,7 @@ public class MoveState : State
   protected void UpdateVars()
   {
     movement = new Vector3(player.movement.x, 0f, player.movement.y);
+    movement = Vector3.ProjectOnPlane(movement, player.groundNormal);
     localVelocity = LocalVelocity();
     sqrMaxSpeed = Mathf.Pow(player.stats.maxMoveSpeed,2);
   }
